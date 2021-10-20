@@ -67,7 +67,7 @@ export default {
         })
         .catch((error) => {
           if (error.response.status == "401")
-            alert("ERROR 401: Credenciales Incorrectas.");
+            alert("ERROR 400: datos incorrectos");
         });
     },
   },
@@ -78,7 +78,7 @@ export default {
 
 <style>
 .sing_user {
-  margin-top: 100px;
+  margin-top: 20px;
   padding: 0%;
   height: 100%;
   width: 100%;
