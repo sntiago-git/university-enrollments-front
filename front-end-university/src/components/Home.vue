@@ -1,7 +1,7 @@
 <template>
   <div class="greetings">
     <h1>
-      ¡Bienvenido <span> {{ username }} </span>!
+      ¡Bienvenido <span> {{ id }} </span>!
     </h1>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
   name: "Home",
   data: function() {
     return {
-      username: localStorage.getItem("username") || "none"
+      id: localStorage.getItem("id") || "none"
     };
   },
 };

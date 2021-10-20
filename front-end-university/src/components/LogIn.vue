@@ -3,7 +3,7 @@
     <div class="container_logIn_user">
       <h2>Iniciar sesión</h2>
       <form v-on:submit.prevent="processLogInUser">
-        <input type="text" v-model="user.username" placeholder="Username" />
+        <input type="text" v-model="user.id" placeholder="id" />
         <br />
         <input type="password" v-model="user.password" placeholder="Password" />
         <br />
@@ -20,7 +20,7 @@ export default {
   data: function() {
     return {
       user: {
-        username: "",
+        id: "",
         password: "",
       },
     };
@@ -28,12 +28,12 @@ export default {
   methods: {
     processLogInUser: function() {
       axios
-        .post("https://mision-tic-bank-be.herokuapp.com/login/", this.user, {
+        .post("https://unversidad-back.herokuapp.com/login/", this.user, {
           headers: {},
         })
         .then((result) => {
           let dataLogIn = {
-            username: this.user.username,
+            id: this.user.id,
             token_access: result.data.access,
             token_refresh: result.data.refresh,
           };
@@ -48,6 +48,12 @@ export default {
   },
 };
 </script>
+
+
+
+
+
+
 
 <style>
 .logIn_user {

@@ -1,12 +1,13 @@
 <template>
   <div id="app" class="app">
     <div class="header">
-      <h1>Banco UN</h1>
+      <h1>Universidad MinTic 2022</h1>
       <nav>
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
         <button v-if="is_auth">Cuenta</button>
         <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
+        <br> <br>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
       </nav>
     </div>
@@ -41,8 +42,11 @@ export default {
   methods: {
     verify: function() {
       this.is_auth = localStorage.getItem("isAuth") || false;
-      if (this.is_auth == false) this.$router.push({ name: "logIn" });
-      else this.$router.push({ name: "home" });
+      console.log(this.is_auth);
+      if (this.is_auth == false) 
+        this.$router.push({ name: "logIn" });
+      else 
+        this.$router.push({ name: "home" });
     },
     loadLogIn: function() {
       this.$router.push({ name: "logIn" });
@@ -56,28 +60,26 @@ export default {
 
     completedLogIn: function(data) {
       localStorage.setItem("isAuth", true);
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("token_access", data.token_access);
-      localStorage.setItem("token_refresh", data.token_refresh);
+      localStorage.setItem("id", data.id);
+      localStorage.setItem("access", data.access);
+      localStorage.setItem("refresh", data.refresh);
       alert("Autenticación Exitosa");
-      this.verifyAuth();
+      this.verify();
     },
-
+      logOut: function() {
+      localStorage.setItem("isAuth", false);
+      console.log("cierra sesion");
+      localStorage.clear();
+      alert("Sesión Cerrada");
+      this.verify();
+    },
     completedSignUp: function(data) {
       alert("Registro Exitoso");
-      this.completedLogIn(data);
+      this.$router.push({ name: "logIn" });
     },
   },
+ 
 
-  completedSignUp: function(data) {
-    alert("Registro Exitoso");
-    this.completedLogIn(data);
-  },
-  logOut: function() {
-    localStorage.clear();
-    alert("Sesión Cerrada");
-    this.verifyAuth();
-  },
 
   created: function() {
     this.verify();
@@ -98,7 +100,7 @@ body {
   background-color: #283747;
   color: #e5e7e9;
   display: flex;
-  justify-content: space -between;
+  justify-content: right;
 
   align-items: center;
 }
