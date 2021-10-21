@@ -79,6 +79,7 @@ export default {
     };
   },
   methods: {
+    
     loadSignUp: function() {
       this.$router.push({ name: "signUp" });
     },
@@ -89,7 +90,7 @@ export default {
         })
         .then((result) => {
           let dataLogIn = {
-            id: result.user.id,
+            id: result.data.id,
             name: result.data.name,
             lastname: result.data.lastname,
 
@@ -100,6 +101,7 @@ export default {
           this.$emit("completedLogIn", dataLogIn);
         })
         .catch((error) => {
+     
           if (error.response.status == "401")
             alert("ERROR 401: Credenciales Incorrectas.");
         });
