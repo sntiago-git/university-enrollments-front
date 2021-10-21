@@ -21,6 +21,8 @@
         <br />
         <input type="password" v-model="userSign.password" required  placeholder="Password" />
         <br />
+        <input type="password" v-model="userSign.password2" required  placeholder="Cofirm Password" />
+        <br />
         <button type="submit">Registrarme</button>
       </form>
     </div>
@@ -39,6 +41,7 @@ export default {
       userSign: {
         id: "",
         password: "",
+        password2: "",
         name:"",
         lastname:"",
         birthdate:"",
@@ -51,7 +54,12 @@ export default {
   },
   methods: {
     processSingUser: function() {
-        console.log(this.userSign);
+    
+      /*if (this.userSign.confirm_password != this.userSign.password){
+        alert("Las contraseñas no coinciden")
+        return false
+      }*/
+
       axios
         .post("https://unversidad-back.herokuapp.com/students/students/", this.userSign , {
           headers: {},
@@ -66,9 +74,11 @@ export default {
           this.$emit("completedSignUp", dataSign);
         })
         .catch((error) => {
-          if (error.response.status == "401")
-            alert("ERROR 400: datos incorrectos");
+
+          alert(JSON.stringify(error.response.data));
+          console.log(error.response.data)
         });
+  
     },
   },
 };

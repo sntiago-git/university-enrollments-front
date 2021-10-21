@@ -7,6 +7,7 @@
         <button v-if="is_auth">Cuenta</button>
         <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
+        <button v-if="is_auth" v-on:click="loadLogIn">Mis cursos</button>
         <br> <br>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
       </nav>
