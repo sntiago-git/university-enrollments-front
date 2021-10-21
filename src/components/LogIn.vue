@@ -1,23 +1,76 @@
 <template>
-  <div class="logIn_user">
-    <div class="container_logIn_user">
-      <h2>Iniciar sesión</h2>
-      <form v-on:submit.prevent="processLogInUser">
-        <input type="text" v-model="user.id" placeholder="id" />
-        <br />
-        <input type="password" v-model="user.password" placeholder="Password" />
-        <br />
-        <button type="submit">Iniciar Sesion</button>
-      </form>
+  <div class="container mt-5 px-lg-5" > 
+    <div class="d-flex justify-content-center">
+      <div class="border rounded mb-5" style="width: 22rem">
+        <form class="w-100 p-4" v-on:submit.prevent="processLogInUser">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input
+              type="number"
+              v-model="user.id"
+              id="form2Example1"
+              class="form-control"
+            />
+            <label class="form-label" for="form2Example1">Student</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input
+              type="password"
+              v-model="user.password"
+              id="form2Example2"
+              class="form-control"
+            />
+            <label class="form-label" for="form2Example2">Password</label>
+          </div>
+
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <!-- Checkbox -->
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="form2Example34"
+                  checked
+                />
+                <label class="form-check-label" for="form2Example34">
+                  Remember me
+                </label>
+              </div>
+            </div>
+
+            <div class="col">
+              <!-- Simple link -->
+              <a href="#!">Forgot password?</a>
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">
+            Sign in
+          </button>
+
+          <!-- Register buttons -->
+          <div class="text-center text-muted font-weight-bold">
+            <p>Not a student? <a class="mylink text-primary " v-on:click="loadSignUp" >Register</a></p>
+          </div>
+        </form>
+      </div>
     </div>
+    <hr />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
   name: "LogIn",
-  data: function() {
+  data: function () {
     return {
       user: {
         id: "",
@@ -26,14 +79,20 @@ export default {
     };
   },
   methods: {
-    processLogInUser: function() {
+    loadSignUp: function() {
+      this.$router.push({ name: "signUp" });
+    },
+    processLogInUser: function () {
       axios
         .post("https://unversidad-back.herokuapp.com/login/", this.user, {
           headers: {},
         })
         .then((result) => {
           let dataLogIn = {
-            id: this.user.id,
+            id: result.user.id,
+            name: result.data.name,
+            lastname: result.data.lastname,
+
             token_access: result.data.access,
             token_refresh: result.data.refresh,
           };
@@ -51,59 +110,8 @@ export default {
 
 
 
-
-
-
-
 <style>
-.logIn_user {
-  margin-top: 100px;
-  padding: 0%;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container_logIn_user {
-  border: 3px solid #283747;
-  border-radius: 10px;
-  width: 25%;
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.logIn_user h2 {
-  color: #283747;
-}
-.logIn_user form {
-  width: 70%;
-}
-.logIn_user input {
-  height: 40px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 20px;
-  margin: 5px 0;
-  border: 1px solid #283747;
-}
-.logIn_user button {
-  width: 100%;
-  height: 40px;
-  color: #e5e7e9;
-  background: #283747;
-  border: 1px solid #e5e7e9;
-  border-radius: 5px;
-  padding: 10px 25px;
-  margin: 5px 0;
-}
-.logIn_user button:hover {
-  color: #e5e7e9;
-  background: crimson;
-  border: 1px solid #283747;
-}
+
 </style>
 
 

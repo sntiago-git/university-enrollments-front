@@ -1,17 +1,18 @@
 <template>
   <div class="greetings">
     <h1>
-      ¡Bienvenido <span> {{ id }} </span>!
+      ¡Bienvenido <span> {{ name }} </span>!
     </h1>
+
   </div>
 </template>
 
 <script>
 export default {
   name: "Home",
-  data: function() {
+  data: function () {
     return {
-      id: localStorage.getItem("id") || "none"
+      name: localStorage.getItem("name") || "none",
     };
   },
 };

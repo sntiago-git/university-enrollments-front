@@ -1,6 +1,9 @@
 <template>
+  <v-app>
   <div id="app" class="app">
-    <div class="header">
+
+    <Loginheader></Loginheader>
+    <div v-if="is_auth" class="header">
       <h1>Universidad MinTic 2022</h1>
       <nav>
         <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
@@ -21,16 +24,19 @@
       >
       </router-view>
     </div>
-
-    <div class="footer">
-      <h2>Misión TIC 2022</h2>
-    </div>
+    
+    <Footer></Footer>
   </div>
+  </v-app>
 </template>
 
 <script>
+import Footer from './components/footer.vue';
+import Loginheader from './components/loginheader.vue';
+
 export default {
   name: "App",
+  components:{Footer, Loginheader},
 
   data: function() {
     return {
@@ -38,12 +44,12 @@ export default {
     };
   },
 
-  component: {},
 
   methods: {
     verify: function() {
       this.is_auth = localStorage.getItem("isAuth") || false;
       console.log(this.is_auth);
+
       if (this.is_auth == false) 
         this.$router.push({ name: "logIn" });
       else 
@@ -62,6 +68,8 @@ export default {
     completedLogIn: function(data) {
       localStorage.setItem("isAuth", true);
       localStorage.setItem("id", data.id);
+      localStorage.setItem("name", data.name);
+      localStorage.setItem("lastname", data.lastname);
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
       alert("Autenticación Exitosa");
@@ -88,73 +96,7 @@ export default {
 };
 </script>
 
+
 <style>
-body {
-  margin: 0 0 0 0;
-}
-.header {
-  margin: 0%;
-  padding: 0;
-  width: 100%;
-  height: 10vh;
-  min-height: 100px;
-  background-color: #283747;
-  color: #e5e7e9;
-  display: flex;
-  justify-content: right;
 
-  align-items: center;
-}
-.header h1 {
-  width: 20%;
-  text-align: center;
-}
-.header nav {
-  height: 100%;
-  width: 20%;
-  display: flex;
-  justify-content: space -around;
-
-  align-items: center;
-
-  font-size: 20px;
-}
-.header nav button {
-  color: #e5e7e9;
-  background: #283747;
-
-  border: 1px solid #e5e7e9;
-
-  border-radius: 5px;
-
-  padding: 10px 20px;
-}
-.header nav button:hover {
-  color: #283747;
-  background: #e5e7e9;
-
-  border: 1px solid #e5e7e9;
-}
-.main -component {
-  height: 75vh;
-  margin: 0%;
-  padding: 0%;
-  background: #fdfefe;
-}
-.footer {
-  margin-top: 100px;
-  padding: 0;
-  width: 100%;
-  height: 10vh;
-  min-height: 100px;
-  background-color: #283747;
-  color: #e5e7e9;
-}
-.footer h2 {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 </style>
