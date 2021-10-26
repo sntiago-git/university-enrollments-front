@@ -10,7 +10,7 @@
         <button v-if="is_auth">Cuenta</button>
         <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
         <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
-        <button v-if="is_auth" v-on:click="loadLogIn">Mis cursos</button>
+        <button v-if="is_auth" v-on:click="loadCourses">Mis cursos</button>
         <br> <br>
         <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
       </nav>
@@ -22,6 +22,7 @@
         v-on:completedSignUp="completedSignUp"
         v-on:logOut="logOut"
       >
+    
       </router-view>
     </div>
     
@@ -41,6 +42,7 @@ export default {
   data: function() {
     return {
       is_auth: false,
+      is_admin: false
     };
   },
 
@@ -51,9 +53,8 @@ export default {
       console.log(this.is_auth);
 
       if (this.is_auth == false) 
-        this.$router.push({ name: "logIn" });
-      else 
-        this.$router.push({ name: "home" });
+        this.loadLogIn()
+
     },
     loadLogIn: function() {
       this.$router.push({ name: "logIn" });
@@ -64,9 +65,13 @@ export default {
     loadHome: function() {
       this.$router.push({ name: "home" });
     },
+    loadCourses: function() {
+      this.$router.push({ name: "courses"});
+    },
 
     completedLogIn: function(data) {
       localStorage.setItem("isAuth", true);
+
       localStorage.setItem("id", data.id);
       localStorage.setItem("name", data.name);
       localStorage.setItem("lastname", data.lastname);
@@ -77,6 +82,7 @@ export default {
     },
       logOut: function() {
       localStorage.setItem("isAuth", false);
+
       console.log("cierra sesion");
       localStorage.clear();
       alert("Sesión Cerrada");
