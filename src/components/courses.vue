@@ -1,26 +1,30 @@
 <template>
-
   <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="mt-4 mb-4">Courses</h2>
+    <div class="d-flex flex-wrap justify-content-start">
+      <div class="col-12">
+        <h2 class="mt-4 mb-4">My Courses</h2>
+      </div>
+      <div v-for="course in courses" :key="course">
+        <!-- Bootstrap 5 card box -->
+        <div class="card-box">
+          <div class="card-thumbnail">
+            <img src="images/office-image-one.jpg" class="img-fluid" alt="" />
+          </div>
+          <h4 class="mt-2 text-dark">{{ course.name }}</h4>
+          <p class="text-secondary">Docente: {{ course.teacher }}</p>
+          <p class="text-secondary">{{ course.short_desc }}</p>
+          <p class="text-secondary">{{ course.schedule }}</p>
+          <button
+            v-on:click="loadCourse(course.id)"
+            class="btn btn-sm btn-primary float-right"
+          >
+            View Course
+          </button>
         </div>
-        <div v-for="course in courses" :key="course" class="col-md-6 col-lg-3">
-            <!-- Bootstrap 5 card box -->
-            <div class="card-box">
-                <div class="card-thumbnail">
-                    <img src="images/office-image-one.jpg" class="img-fluid" alt="">
-                </div>
-                <h3 class="mt-2 text-dark"> {{course.name}} </h3>
-                <p class="text-secondary"> Docente: {{course.teacher}} </p>
-                <p class="text-secondary"> {{course.short_desc}} </p>
-                <p class="text-secondary"> {{course.schedule}} </p>
-                <button v-on:click="loadCourse(course.id)" class="btn btn-sm btn-primary float-right">View Course</button>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
-
+    <hr />
+  </div>
 </template>
 
 <script>
@@ -36,9 +40,8 @@ export default {
   },
 
   methods: {
-
-    loadCourse: function(course_id) {
-      this.$router.push({ name: "courseDetail", params:{id:course_id}});
+    loadCourse: function (course_id) {
+      this.$router.push({ name: "courseDetail", params: { id: course_id } });
     },
 
     async getCourses() {
@@ -66,25 +69,26 @@ export default {
 
 <style>
 .card-box {
-    border: 1px solid #ddd;
-    padding: 20px;
-    box-shadow: 0px 0px 10px 0px #c5c5c5;
-    margin-bottom: 30px;
-    float: left;
-    border-radius: 10px;
-    width: 100%;
+  margin: 5px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  float: left;
+  border-radius: 10px;
+  width: 250px;
+  height: 350px;
+  background-color: white;
 }
 .card-box .card-thumbnail {
-    max-height: 200px;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: 1s;
+  max-height: 200px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: 1s;
 }
 .card-box .card-thumbnail:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 .card-box h3 a {
-    font-size: 20px;
-    text-decoration: none;
+  font-size: 20px;
+  text-decoration: none;
 }
 </style>

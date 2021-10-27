@@ -1,41 +1,95 @@
 <template>
-    <div class="header">
-      <h1>Universidad MinTic 2022</h1>
-      <nav>
-        <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
-        <button v-if="is_auth">Cuenta</button>
-        <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
-        <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
-        <button v-if="is_auth" v-on:click="loadLogIn">Mis cursos</button>
-        <br> <br>
-        <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
-      </nav>
+  <div class="sidebar border justify-content-center">
+    <div class="content">
+      <router-link class="rounded-pill btn btn-outline-primary" to="/home2"
+        >Join courses</router-link
+      >
+      <router-link
+        type="button"
+        class="rounded-pill btn btn-light"
+        to="/courses"
+        >My courses</router-link
+      >
+      <button
+        class="rounded-pill btn btn-outline-primary"
+        v-if="isAuth"
+        v-on:click="logOut"
+      >
+        logout
+      </button>
     </div>
+  </div>
 </template>
 
 
 <script>
 export default {
-  name: "navBar",
+  name: "NavBar",
+  data() {
+    return {
+      isAuth: localStorage.getItem("access"),
+    };
+  },
+  methods: {
+    logOut: function () {
+      localStorage.clear();
+      console.log("Sesion cerrada");
+      alert("Sesión Cerradaaaa");
+      this.$router.push({ name: "logIn" });
+    },
+  },
 };
 </script>
 
 <style>
-.greetings {
+.btn-light {
+  background-color: white !important;
+}
+.btn-light:hover {
+  background-color: #f0f0f0 !important;
+}
+.sidebar {
+  background-color: white;
   margin: 0;
-  padding: 0%;
+  padding: 0;
+  position: fixed;
+  top: 80px;
+  width: 220px;
   height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: auto;
 }
-.greetings h1 {
-  font-size: 50px;
-  color: #283747;
+.content {
+  margin-left: 20px;
+  margin-top: 20px;
 }
-.greetings span {
-  color: crimson;
-  font-weight: bold;
+.sidebar a {
+  top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  margin: 10px;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 80px;
+  }
+  .sidebar a {
+    float: left;
+  }
+  div.content {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }
 </style>
+

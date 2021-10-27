@@ -2,7 +2,6 @@
   <h1>{{ name }}</h1>
   <br />
   <h2>{{ short_description }}</h2>
-  <h1>Hola</h1>
 </template>
 
 <script>
