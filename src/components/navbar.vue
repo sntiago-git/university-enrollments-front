@@ -1,22 +1,15 @@
 <template>
-  <div class="sidebar border justify-content-center">
+  <div class="sidebar border-right justify-content-center">
     <div class="content">
-      <router-link class="rounded-pill btn btn-outline-primary" to="/home2"
+      <router-link class="rounded-pill btn btn-outline-primary" to="/enrollment"
         >Join courses</router-link
       >
       <router-link
         type="button"
         class="rounded-pill btn btn-light"
-        to="/courses"
+        to="/mycourses"
         >My courses</router-link
       >
-      <button
-        class="rounded-pill btn btn-outline-primary"
-        v-if="isAuth"
-        v-on:click="logOut"
-      >
-        logout
-      </button>
     </div>
   </div>
 </template>
@@ -53,7 +46,6 @@ export default {
   margin: 0;
   padding: 0;
   position: fixed;
-  top: 80px;
   width: 220px;
   height: 100%;
   overflow: auto;
@@ -76,6 +68,7 @@ export default {
     height: auto;
     position: relative;
     margin-bottom: 80px;
+    margin-top:60px ;
   }
   .sidebar a {
     float: left;

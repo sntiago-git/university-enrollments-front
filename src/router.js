@@ -2,11 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 import LogIn from './components/LogIn.vue'
 import SignUp from './components/SingUp.vue'
-import Enrollment from './components/Enrollment.vue'
 import CourseDetail from './components/CourseDetail.vue'
-import Courses from './components/Courses.vue'
+import MyCourses from './components/MyCourses.vue'
+
 import Auth from './views/Auth'
 import Home from './views/Home'
+import Enrollment from './views/Enrollment.vue'
 
 const routes = [{
   path: '/',
@@ -43,9 +44,9 @@ const routes = [{
   },
   children: [
     {
-      path: '/courses',
-      name: 'courses',
-      component: Courses,
+      path: '/mycourses',
+      name: 'mycourses',
+      component: MyCourses,
       meta: {
         requiresAuth: true
       }
@@ -58,16 +59,16 @@ const routes = [{
         requiresAuth: true
       }
     },
-    {
-      path: '/enrollment',
-      name: 'enrollment',
-      component: Enrollment,
-      meta: {
-        requiresAuth: true
-      }
-    },
-
+   
   ]
+},
+{
+  path: '/enrollment',
+  name: 'enrollment',
+  component: Enrollment,
+  meta: {
+    requiresAuth: true
+  }
 },
 ];
 

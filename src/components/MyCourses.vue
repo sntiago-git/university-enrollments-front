@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-start">
       <div class="col-12">
-        <h2 class="mt-4 mb-4">My Courses</h2>
+        <h4 class="mt-4 mb-4">My Courses</h4>
       </div>
       <div v-for="course in courses" :key="course">
         <!-- Bootstrap 5 card box -->
@@ -31,7 +31,7 @@
 import axios from "axios";
 
 export default {
-  name: "Courses",
+  name: "MyCourses",
 
   data() {
     return {
@@ -44,12 +44,15 @@ export default {
       this.$router.push({ name: "courseDetail", params: { id: course_id } });
     },
 
-    async getCourses() {
+    async getMyCourses() {
       try {
         const courses = await axios.get(
-          ` https://unversidad-back.herokuapp.com/courses/courses/`,
+          ` https://unversidad-back.herokuapp.com/courses/my-courses/`,
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("access")}`,
+            },
           }
         );
 
@@ -62,7 +65,7 @@ export default {
   },
 
   created() {
-    this.getCourses();
+    this.getMyCourses();
   },
 };
 </script>

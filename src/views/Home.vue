@@ -1,4 +1,5 @@
 <template>
+  <Header/>
   <Navbar />
   <div class="main-component">
     <router-view></router-view>
@@ -9,12 +10,14 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Home",
   components: {
     Navbar,
     Footer,
+    Header,
   },
   methods: {
   },
@@ -24,7 +27,7 @@ export default {
 <style>
 .main-component {
   margin-left: 220px;
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 @media screen and (max-width: 700px) {
