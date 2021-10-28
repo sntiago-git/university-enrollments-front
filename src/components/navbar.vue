@@ -1,41 +1,95 @@
 <template>
-    <div class="header">
-      <h1>Universidad MinTic 2022</h1>
-      <nav>
-        <button v-if="is_auth" v-on:click="loadHome">Inicio</button>
-        <button v-if="is_auth">Cuenta</button>
-        <button v-if="is_auth" v-on:click="logOut">Cerrar Sesión</button>
-        <button v-if="!is_auth" v-on:click="loadLogIn">Iniciar Sesión</button>
-        <button v-if="is_auth" v-on:click="loadLogIn">Mis cursos</button>
-        <br> <br>
-        <button v-if="!is_auth" v-on:click="loadSignUp">Registrarse</button>
-      </nav>
+  <div class="sidebar border-right justify-content-center">
+    <div class="content side">
+      <router-link class="rounded-pill btn btn-outline-primary" to="/enrollment"
+        >Join courses</router-link
+      >
+      <router-link
+        type="button"
+        class="rounded-pill btn btn-side"
+        to="/mycourses"
+        >My courses</router-link
+      >
     </div>
+  </div>
 </template>
 
 
 <script>
 export default {
-  name: "navBar",
+  name: "NavBar",
+  data() {
+    return {
+      isAuth: localStorage.getItem("access"),
+    };
+  },
+  methods: {
+    logOut: function () {
+      localStorage.clear();
+      console.log("Sesion cerrada");
+      alert("Sesión Cerradaaaa");
+      this.$router.push({ name: "logIn" });
+    },
+  },
 };
 </script>
 
 <style>
-.greetings {
+.side > .router-link-active,
+.side > .router-link-exact-active {
+  background-color: #f0f0f0 !important;
+  cursor: pointer;
+}
+
+.btn-side {
+  background-color: transparent ;
+}
+ .btn-side:hover {
+  border: 1px solid #dee2e6 ;
+}
+
+.sidebar {
+  background-color: white;
   margin: 0;
-  padding: 0%;
+  padding: 0;
+  position: fixed;
+  width: 220px;
   height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: auto;
 }
-.greetings h1 {
-  font-size: 50px;
-  color: #283747;
+.content {
+  margin-left: 20px;
+  margin-top: 20px;
 }
-.greetings span {
-  color: crimson;
-  font-weight: bold;
+.sidebar a {
+  top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  margin: 10px;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 80px;
+    margin-top: 60px;
+  }
+  .sidebar a {
+    float: left;
+  }
+  div.content {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }
 </style>
+

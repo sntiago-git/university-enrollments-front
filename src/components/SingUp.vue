@@ -190,9 +190,7 @@
             >
               <p class="text-muted font-weight-bold">
                 Already Registered?
-                <a
-                  v-on:click="loadLogIn"
-                  class="mylink text-primary ml-2"
+                <a v-on:click="loadLogIn" class="mylink text-primary ml-2"
                   >Login</a
                 >
               </p>
@@ -205,13 +203,11 @@
   </div>
 </template>
 
-
-
-
 <script>
 import axios from "axios";
+
 export default {
-  name: "singUp",
+  name: "SingUp",
   data: function () {
     return {
       userSign: {
@@ -237,7 +233,7 @@ export default {
         alert("Las contraseñas no coinciden");
         return false;
       }
-
+      
       axios
         .post(
           "https://unversidad-back.herokuapp.com/students/students/",
@@ -248,11 +244,8 @@ export default {
         )
         .then((result) => {
           console.log(result);
-          let dataSign = {
-            id: this.userSign.id,
-          };
-
-          this.$emit("completedSignUp", dataSign);
+          alert("Registro Exitoso");
+          this.$router.push({ name: "logIn" });
         })
         .catch((error) => {
           alert(JSON.stringify(error.response.data));
@@ -263,7 +256,5 @@ export default {
 };
 </script>
 
-
 <style>
-
 </style>

@@ -45,7 +45,7 @@
 <style>
     .footer-clean {
     padding:50px 0;
-    background-color:#fff;
+    background-color:transparent;
     color:#4b4c4d;
     }
 

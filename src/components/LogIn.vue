@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5 px-lg-5" > 
+  <div class="container mt-5 px-lg-5">
     <div class="d-flex justify-content-center">
       <div class="border rounded mb-5" style="width: 22rem">
         <form class="w-100 p-4" v-on:submit.prevent="processLogInUser">
@@ -56,7 +56,12 @@
 
           <!-- Register buttons -->
           <div class="text-center text-muted font-weight-bold">
-            <p>Not a student? <a class="mylink text-primary " v-on:click="loadSignUp" >Register</a></p>
+            <p>
+              Not a student?
+              <a class="mylink text-primary" v-on:click="loadSignUp"
+                >Register</a
+              >
+            </p>
           </div>
         </form>
       </div>
@@ -79,8 +84,7 @@ export default {
     };
   },
   methods: {
-    
-    loadSignUp: function() {
+    loadSignUp: function () {
       this.$router.push({ name: "signUp" });
     },
     processLogInUser: function () {
@@ -89,19 +93,17 @@ export default {
           headers: {},
         })
         .then((result) => {
-          let dataLogIn = {
-            id: result.data.id,
-            name: result.data.name,
-            lastname: result.data.lastname,
-
-            token_access: result.data.access,
-            token_refresh: result.data.refresh,
-          };
-
-          this.$emit("completedLogIn", dataLogIn);
+          console.log(result);
+  
+          localStorage.setItem("id", result.data.id);
+          localStorage.setItem("name", result.data.name);
+          localStorage.setItem("lastname", result.data.lastname);
+          localStorage.setItem("access", result.data.access);
+          localStorage.setItem("refresh", result.data.refresh);
+          alert("Autenticación Exitosa");
+          this.$router.push({ name: "home" });
         })
         .catch((error) => {
-     
           if (error.response.status == "401")
             alert("ERROR 401: Credenciales Incorrectas.");
         });
@@ -110,10 +112,7 @@ export default {
 };
 </script>
 
-
-
 <style>
-
 </style>
 
 
