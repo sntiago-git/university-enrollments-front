@@ -22,7 +22,7 @@
         data-bs-display="static"
         aria-expanded="false"
       >
-        <span class="">
+        <span class="text-dark">
           {{ user.id }} - {{ user.name }} {{ user.lastname }}</span
         >
 

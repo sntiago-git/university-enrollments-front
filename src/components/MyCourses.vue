@@ -2,24 +2,42 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-start">
       <div class="col-12">
-        <h4 class="mt-4 mb-4">My Courses</h4>
+        <h5 class="mt-5 mb-4">My Courses</h5>
       </div>
-      <div v-for="course in courses" :key="course">
-        <!-- Bootstrap 5 card box -->
-        <div class="card-box">
-          <div class="card-thumbnail">
-            <img src="images/office-image-one.jpg" class="img-fluid" alt="" />
+
+      <div v-if="empty == true" class="row msg mb-5 mt-2" style="margin: auto">
+        <div class="col-12">
+          <img
+            src="../assets/img/courses.png"
+            alt=""
+            class="img-fluid d-md-block mb-5"
+            style="margin: auto"
+          />
+          <p class="text-dark justify-content-center lead p-2 mb-2">
+            You are not enrolled in any course. If you want to register for a
+            course, click the Join Courses button.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-5 mt-2" v-else>
+        <div v-for="course in courses" :key="course">
+          <!-- Bootstrap 5 card box -->
+          <div class="card-box">
+            <div class="card-thumbnail">
+              <img src="images/office-image-one.jpg" class="img-fluid" alt="" />
+            </div>
+            <h4 class="mt-2 text-dark">{{ course.name }}</h4>
+            <p class="text-secondary">Docente: {{ course.teacher }}</p>
+            <p class="text-secondary">{{ course.short_desc }}</p>
+            <p class="text-secondary">{{ course.schedule }}</p>
+            <button
+              v-on:click="loadCourse(course.id)"
+              class="btn btn-sm btn-primary float-right"
+            >
+              View Course
+            </button>
           </div>
-          <h4 class="mt-2 text-dark">{{ course.name }}</h4>
-          <p class="text-secondary">Docente: {{ course.teacher }}</p>
-          <p class="text-secondary">{{ course.short_desc }}</p>
-          <p class="text-secondary">{{ course.schedule }}</p>
-          <button
-            v-on:click="loadCourse(course.id)"
-            class="btn btn-sm btn-primary float-right"
-          >
-            View Course
-          </button>
         </div>
       </div>
     </div>
@@ -36,6 +54,7 @@ export default {
   data() {
     return {
       courses: [],
+      empty: false,
     };
   },
 
@@ -57,7 +76,11 @@ export default {
         );
 
         console.log(courses);
-        this.courses = courses.data;
+        if (courses.data.length == 0) {
+          this.empty = true;
+        } else {
+          this.courses = courses.data;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -71,6 +94,10 @@ export default {
 </script>
 
 <style>
+.msg {
+  width: 50%;
+}
+
 .card-box {
   margin: 5px;
   border: 1px solid #ddd;

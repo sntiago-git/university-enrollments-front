@@ -5,3 +5,16 @@
 body{
     background-color: #f9f9f9;
 }
+
+.btn:hover {
+    outline: none;
+    box-shadow: none !important;
+}
+.btn:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+.btn:active {
+    outline: none;
+    box-shadow: none !important;
+ }

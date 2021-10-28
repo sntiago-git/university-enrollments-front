@@ -52,7 +52,7 @@
                   <div class="container mb-2 font-weight-bold text-dark">
                     <p>Select your course:</p>
                   </div>
-                  <div class="d-block w-100" style="height: 200px">
+                  <div class="d-block w-100" style="height: 500px">
                     <div class="list-group overflow-auto h-100 rounded-0">
                       <table class="table border">
                         <thead class="">

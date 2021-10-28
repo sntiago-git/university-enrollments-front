@@ -1,12 +1,12 @@
 <template>
   <div class="sidebar border-right justify-content-center">
-    <div class="content">
+    <div class="content side">
       <router-link class="rounded-pill btn btn-outline-primary" to="/enrollment"
         >Join courses</router-link
       >
       <router-link
         type="button"
-        class="rounded-pill btn btn-light"
+        class="rounded-pill btn btn-side"
         to="/mycourses"
         >My courses</router-link
       >
@@ -35,12 +35,19 @@ export default {
 </script>
 
 <style>
-.btn-light {
-  background-color: white !important;
-}
-.btn-light:hover {
+.side > .router-link-active,
+.side > .router-link-exact-active {
   background-color: #f0f0f0 !important;
+  cursor: pointer;
 }
+
+.btn-side {
+  background-color: transparent ;
+}
+ .btn-side:hover {
+  border: 1px solid #dee2e6 ;
+}
+
 .sidebar {
   background-color: white;
   margin: 0;
@@ -68,7 +75,7 @@ export default {
     height: auto;
     position: relative;
     margin-bottom: 80px;
-    margin-top:60px ;
+    margin-top: 60px;
   }
   .sidebar a {
     float: left;
