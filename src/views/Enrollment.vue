@@ -155,7 +155,7 @@
 
 <script>
 import axios from "axios";
-import Footer from "@/components/Footer.vue";
+import Footer from "@/components/footer.vue";
 import Header from "@/components/Header.vue";
 
 import CoursesService from "@/services/coursesService.js";

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import LoginHeader from "@/components/LoginHeader.vue";
-import Footer from "@/components/Footer.vue";
+import LoginHeader from "@/components/loginheader.vue";
+import Footer from "@/components/footer.vue";
 
 export default {
   name: "Auth",
