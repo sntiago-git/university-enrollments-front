@@ -1,10 +1,5 @@
 <template>
-  <div class="greetings">
-    <h1>
-      ¡Bienvenido <span> {{ name }} </span>!
-    </h1>
-
-  </div>
+  <img src="../assets/img/courses.png" alt="">
 </template>
 
 <script>

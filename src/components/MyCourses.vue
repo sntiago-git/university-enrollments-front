@@ -21,9 +21,9 @@
       </div>
 
       <div class="mb-5 mt-2" v-else>
-        <div v-for="course in courses" :key="course">
+        <div>
           <!-- Bootstrap 5 card box -->
-          <div class="card-box">
+          <div class="card-box"  v-for="course in courses" :key="course">
             <div class="card-thumbnail">
               <img src="images/office-image-one.jpg" class="img-fluid" alt="" />
             </div>
