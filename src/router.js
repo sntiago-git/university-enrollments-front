@@ -8,6 +8,7 @@ import MyCourses from './components/MyCourses.vue'
 import Auth from './views/Auth'
 import Home from './views/Home'
 import Enrollment from './views/Enrollment.vue'
+import Account from './views/Account.vue'
 
 const routes = [{
   path: '/',
@@ -66,6 +67,14 @@ const routes = [{
   path: '/enrollment',
   name: 'enrollment',
   component: Enrollment,
+  meta: {
+    requiresAuth: true
+  }
+},
+{
+  path: '/account',
+  name: 'account',
+  component: Account,
   meta: {
     requiresAuth: true
   }

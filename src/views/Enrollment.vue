@@ -32,6 +32,7 @@
                 role="tab"
                 aria-controls="pills-profile"
                 aria-selected="false"
+                @click="loadMyEnrollment"
               >
                 My Enrollment
               </button>
@@ -101,7 +102,7 @@
                           align-self-center
                           btn
                           rounded-pill
-                          btn-md btn-primary
+                          btn-sm btn-outline-primary
                           mt-5
                         "
                         style="bottom: 0"
@@ -117,7 +118,7 @@
                           align-self-center
                           btn
                           rounded-pill
-                          btn-md btn-danger
+                          btn-sm btn-outline-danger
                           mt-5
                         "
                         style="bottom: 0"
@@ -140,7 +141,38 @@
             >
               <div style="display: flex">
                 <div class="col-md-12 pr-lg-5 mb-5 mb-md-0">
-                  <div class="d-flex justify-content-center">algo confirm</div>
+                  <div class="col-12 d-flex justify-content-center">
+                    <h5 class="mt-3 mb-4 text-muted">
+                      You enrolled in the following courses:
+                    </h5>
+                  </div>
+                  <div class="justify-content-center">
+                    <div class="list-group">
+                      <div
+                        v-for="mycourse in mycourses"
+                        :key="mycourse"
+                        class="mt-2 mycard rounded"
+                      >
+                        <div
+                          class="
+                            list-group-item list-group-item-action
+                            flex-column p-3
+                          "
+                        >
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mr-2">
+                              {{ mycourse.id }} - {{ mycourse.name }}
+                            </h5>
+                            <small> {{ mycourse.schedule }} </small>
+                          </div>
+                          <p class="mb-1">
+                            {{ mycourse.long_desc }}
+                          </p>
+                          <small>Teacher: {{ mycourse.teacher }} </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,12 +198,13 @@ export default {
   data() {
     return {
       courses: [],
+      mycourses: [],
 
-      name: "a",
-      id: "a",
-      short_desc: "a",
-      long_desc: "a",
-      semester: "a",
+      name: "",
+      id: "",
+      short_desc: "",
+      long_desc: "",
+      semester: "",
       teacher: 0,
       schedule: "",
       registered: false,
@@ -184,7 +217,8 @@ export default {
   },
 
   methods: {
-    async getCourses() {
+    async init() {
+      //Obtenemos todos los cursos existentes disponibles.
       try {
         const courses = await axios.get(
           ` https://unversidad-back.herokuapp.com/courses/courses/`,
@@ -192,52 +226,35 @@ export default {
             headers: { "Content-Type": "application/json" },
           }
         );
-
         this.courses = courses.data;
 
         //verificamos
+        this.getCoursesAlreadyRegistered();
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
+    async getCoursesAlreadyRegistered() {
+      //Obtenemos los courses que ya han sido registrados previamente por el usuario.
+      try {
         const mycourses = await CoursesService.getMyCourses();
+        this.mycourses = mycourses;
 
         console.log(mycourses);
-        console.log(courses.data);
+        console.log(this.courses.data);
 
         this.courses.forEach((course1) => {
           mycourses.forEach((course2) => {
             if (course1.id == course2.id) {
               course1.isRegistered = true;
               console.log(course1);
-            }else{
-             
             }
           });
         });
       } catch (error) {
         console.log(error);
       }
-    },
-
-    viewCourse(id) {
-      let course = this.courses.find((course) => course.id === id);
-      this.name = course.name;
-      this.id = course.id;
-      this.short_desc = course.short_desc;
-      this.long_desc = course.long_desc;
-      this.semester = course.semester;
-      this.teacher = course.teacher;
-      this.schedule = course.schedule;
-      this.registered = course.isRegistered
-    },
-
-    verify(id) {
-      let course = this.courses.find((course) => course.id === id);
-      if(course.isRegistered){
-        course.isRegistered = false;
-        this.registered = false;
-      }else{ 
-        course.isRegistered = true;
-        this.registered = true;
-        }
     },
 
     async register(course_id) {
@@ -258,14 +275,13 @@ export default {
           }
         );
         console.log(enrollment);
-        this.verify(course_id)
+        this.verify(course_id);
       } catch (error) {
         console.log(error);
       }
     },
 
-    async unregister(course_id){
-
+    async unregister(course_id) {
       alert(course_id);
 
       try {
@@ -279,21 +295,55 @@ export default {
           }
         );
         console.log(enrollment);
-        this.verify(course_id)
-
+        this.verify(course_id);
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+
+    viewCourse(id) {
+      let course = this.courses.find((course) => course.id === id);
+      this.name = course.name;
+      this.id = course.id;
+      this.short_desc = course.short_desc;
+      this.long_desc = course.long_desc;
+      this.semester = course.semester;
+      this.teacher = course.teacher;
+      this.schedule = course.schedule;
+      this.registered = course.isRegistered;
+    },
+
+    verify(id) {
+      let course = this.courses.find((course) => course.id === id);
+
+      if (course.isRegistered) {
+        course.isRegistered = false;
+        this.registered = false;
+      } else {
+        course.isRegistered = true;
+        this.registered = true;
+      }
+    },
+
+    loadMyEnrollment() {
+      this.getCoursesAlreadyRegistered();
+    },
   },
 
   created() {
-    this.getCourses();
+    this.init();
   },
 };
 </script>
 
 <style>
+.nav-pills .nav-link.active {
+}
+.mycard {
+  width: 100%;
+  max-width: 600px;
+  margin: auto !important;
+}
 .trbody {
   cursor: pointer;
 }

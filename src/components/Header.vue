@@ -26,16 +26,16 @@
           {{ user.id }} - {{ user.name }} {{ user.lastname }}</span
         >
 
-        <a type="button" class="btn btn-default btn-circle ">
+        <a type="button" class="btn btn-default btn-circle">
           <i class="bi bi-person-circle profile"></i>
         </a>
       </a>
 
       <ul class="dropdown-menu dropdown-menu-lg-end">
         <li>
-          <button class="dropdown-item btn btn-light" type="button">
-            Your Account
-          </button>
+          <router-link class="dropdown-item btn btn-light" to="/account"
+            >Account settings</router-link
+          >
         </li>
         <hr />
         <li>
@@ -78,7 +78,6 @@ export default {
 </script>
 
 <style>
-
 .dropdown-menu {
   right: 10px !important;
   left: auto !important;
