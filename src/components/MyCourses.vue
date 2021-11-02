@@ -23,20 +23,28 @@
       <div class="mb-5 mt-2" v-else>
         <div>
           <!-- Bootstrap 5 card box -->
-          <div class="card-box"  v-for="course in courses" :key="course">
-            <div class="card-thumbnail">
-              <img src="images/office-image-one.jpg" class="img-fluid" alt="" />
+
+          <div
+            class="card card-box position-relative"
+            v-for="course in courses"
+            :key="course"
+          >
+            <div class="">
+              <h5 class="link-course text-dark">
+                <a v-on:click="loadCourse(course.id)">{{ course.name }}</a>
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Code: {{ course.id }}
+              </h6>
+              <hr />
+              <p class="card-text">
+                {{ course.short_desc }}
+              </p>
+              <p>
+                <small>Teacher: {{ course.teacher }}</small>
+              </p>
+              <small>{{ course.schedule }}</small>
             </div>
-            <h4 class="mt-2 text-dark">{{ course.name }}</h4>
-            <p class="text-secondary">Docente: {{ course.teacher }}</p>
-            <p class="text-secondary">{{ course.short_desc }}</p>
-            <p class="text-secondary">{{ course.schedule }}</p>
-            <button
-              v-on:click="loadCourse(course.id)"
-              class="btn btn-sm btn-primary float-right"
-            >
-              View Course
-            </button>
           </div>
         </div>
       </div>
@@ -98,6 +106,11 @@ export default {
   width: 50%;
 }
 
+.link-course:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .card-box {
   margin: 5px;
   border: 1px solid #ddd;
@@ -105,7 +118,7 @@ export default {
   float: left;
   border-radius: 10px;
   width: 250px;
-  height: 350px;
+  height: 300px;
   background-color: white;
 }
 .card-box .card-thumbnail {

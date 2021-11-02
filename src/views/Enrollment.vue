@@ -83,8 +83,34 @@
                 </div>
 
                 <div class="col-md-6 bg-light p-5">
-                  <div class="d-block h-100">
-                    <div class="card-body d-flex flex-column h-100">
+                  <div class="d-block" style="height: 500px">
+                    <div v-if="info" class="d-flex flex-column h-100">
+                      <div>
+                        <div class="h-100">
+                          <p
+                            class="
+                              text-dark
+                              justify-content-center
+                              w-100
+                              lead
+                              text-center
+                              mb-4
+                            "
+                          >
+                            From the site on the left there are all the courses
+                            available at the moment. Select the courses you want
+                            and enroll.
+                          </p>
+                          <img
+                            src="../assets/img/enrollment.png"
+                            alt=""
+                            class="img-fluid d-md-block w-100"
+                            style="margin: auto; max-width: 400px"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else class="card-body d-flex flex-column h-100">
                       <h4 class="card-title pricing-card-title">
                         {{ id }} - {{ name }}
                       </h4>
@@ -156,7 +182,8 @@
                         <div
                           class="
                             list-group-item list-group-item-action
-                            flex-column p-3
+                            flex-column
+                            p-3
                           "
                         >
                           <div class="d-flex w-100 justify-content-between">
@@ -208,6 +235,8 @@ export default {
       teacher: 0,
       schedule: "",
       registered: false,
+
+      info: true,
     };
   },
 
@@ -302,6 +331,8 @@ export default {
     },
 
     viewCourse(id) {
+      this.info = false;
+
       let course = this.courses.find((course) => course.id === id);
       this.name = course.name;
       this.id = course.id;
@@ -337,12 +368,10 @@ export default {
 </script>
 
 <style>
-.nav-pills .nav-link.active {
-}
 .mycard {
   width: 100%;
   max-width: 600px;
-  margin: auto !important;
+  margin: auto;
 }
 .trbody {
   cursor: pointer;

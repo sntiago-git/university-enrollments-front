@@ -2,10 +2,10 @@ import axios from "axios"
 
 export default {
 
-    async getMyCourses() {
+    async getStudent(id) {
         try {
-            const courses = await axios.get(
-                ` https://unversidad-back.herokuapp.com/courses/my-courses/`,
+            const student = await axios.get(
+                ` https://unversidad-back.herokuapp.com/students/getMyInfo/`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export default {
                     },
                 }
             );
-            return courses.data
+            return student.data
         } catch (error) {
             console.log(error);
         }

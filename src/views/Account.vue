@@ -193,8 +193,9 @@
               <button
                 class="rounded-pill btn btn-sm btn-outline-danger"
                 @click="deleteAccount"
-                >Close Account</button
               >
+                Close Account
+              </button>
             </div>
           </div>
         </div>
@@ -209,6 +210,8 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/footer.vue";
 
+import StudentService from "@/services/studentService";
+
 export default {
   name: "Account",
   components: { Header, Footer },
@@ -219,21 +222,33 @@ export default {
         name: "",
         lastname: "",
         birthdate: "",
-        gender: "",
         phone: "",
         email: "",
         career: "",
       },
     };
   },
-  methods:{
-    updateAccount(){
-      alert(this.user.name)
+  methods: {
+    async init() {
+      const student = await StudentService.getStudent();
+
+      this.user.name = student.name;
+      this.user.lastname = student.lastname;
+      this.user.birthdate = student.birthdate;
+      this.user.phone = student.phone;
+      this.user.email = student.email;
+      this.user.career = student.career;
     },
-    deleteAccount(){
-      alert("Desactivando cuenta")
+    updateAccount() {
+      alert("En construcción");
     },
-  }
+    deleteAccount() {
+      alert("Desactivando cuenta");
+    },
+  },
+  created() {
+    this.init();
+  },
 };
 </script>
 
@@ -257,30 +272,21 @@ export default {
 
 .form-control:focus {
   box-shadow: none;
-  border-color: #ba68c8;
 }
 
 .profile-button {
-  background: #ba68c8;
   box-shadow: none;
   border: none;
 }
 
-.profile-button:hover {
-  background: #682773;
-}
-
 .profile-button:focus {
-  background: #682773;
   box-shadow: none;
 }
 
 .profile-button:active {
-  background: #682773;
   box-shadow: none;
 }
 .back:hover {
-  color: #682773;
   cursor: pointer;
 }
 </style>
