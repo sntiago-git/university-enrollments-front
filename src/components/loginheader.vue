@@ -1,15 +1,16 @@
 <template>
-  <header style="background-color: #ffffff">
-    <div class="container p-5 px-lg-5">
-      <div class="d-flex justify-content-center">
-        <h1>Min Univerisity</h1>
-      </div>
+  <header >
+   
+    <div class="container py-5 text-center">
+        <h2 class="display-4 font-weight-normal">Min University Enrollment Module</h2>
+        <p class="font-italic mb-0">This is a module in charge of managing student enrollment.</p>
+        <p class="font-italic">Develop by
+            <a href="https://www.linkedin.com/in/santiago-meneses-dussan-762578210/" class="text-link">
+                <u>Santiago Meneses</u>
+            </a>
+        </p>
     </div>
-    <div class="p-1" style="background-color: #F1F1F1" >
-      <div class="d-flex justify-content-center">
-        <h3 class="">Enrollment Module</h3>
-      </div>
-    </div>
+
   </header>
 </template>
 

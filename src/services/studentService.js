@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default {
 
-    async getStudent(id) {
+    async getStudent() {
         try {
             const student = await axios.get(
                 ` https://unversidad-back.herokuapp.com/students/getMyInfo/`,
@@ -18,4 +18,25 @@ export default {
             console.log(error);
         }
     },
+
+    async updateStudent(id, data) {
+        try {
+            const student = await axios.patch(
+                ` https://unversidad-back.herokuapp.com/students/students/${id}/`,
+                data,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("access")}`,
+                    },
+                }
+            );
+
+            alert("Cuenta Actualizada")
+            return student.data
+        } catch (error) {
+            alert(JSON.stringify(error.response.data));
+            console.log(error.response.data);
+        }
+    }
 };

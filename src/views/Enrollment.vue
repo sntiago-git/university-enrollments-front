@@ -2,9 +2,17 @@
   <Header />
   <div class="enrollment">
     <div class="container">
-      <div class="row mt-4 align-items-center">
+      <div class="row align-items-center">
+        <div class="d-flex flex-row align-items-center back mt-5">
+          <h6>
+            <router-link class="text-decoration-none text-dark" to="/home">
+              <i class="bi bi-arrow-left"></i> Back to home</router-link
+            >
+          </h6>
+        </div>
+
         <div class="d-flex justify-content-center">
-          <ul class="nav nav-pills mb-4 mt-5" id="pills-tab" role="tablist">
+          <ul class="nav nav-pills mb-4 mt-1" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link active border rounded-pill"
@@ -95,6 +103,7 @@
                               lead
                               text-center
                               mb-4
+                              font-weight-normal
                             "
                           >
                             From the site on the left there are all the courses

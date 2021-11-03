@@ -7,10 +7,9 @@
           class="col-12 d-flex mt-5 justify-content-between align-items-center"
         >
           <div class="d-flex flex-row align-items-center back">
-            <i class="bi bi-arrow-left mr-1 mb-1"></i>
             <h6>
-              <router-link class="text-decoration-none text-dark" to="/home"
-                >Back to home</router-link
+              <router-link class="text-decoration-none text-dark" to="/home">
+                <i class="bi bi-arrow-left"></i> Back to home</router-link
               >
             </h6>
           </div>
@@ -21,14 +20,12 @@
             <div
               class="d-flex flex-column align-items-center text-center p-3 py-5"
             >
-              <img
-                class="rounded-circle mt-5"
-                src="https://i.imgur.com/0eg0aG0.jpg"
-                width="90"
-              /><span class="font-weight-bold">
+              <img class="mt-5" src="../assets/img/user.png" width="90" /><span
+                class="font-weight-bold"
+              >
                 {{ user.name }} {{ user.lastname }} </span
-              ><span class="text-black-50"> {{ user.email }} </span
-              ><span> {{ user.career }} </span>
+              ><small class="text-black-50"> {{ user.email }} </small
+              ><small> {{ user.career }} </small>
             </div>
           </div>
           <div class="col-md-8">
@@ -165,7 +162,11 @@
 
                 <div class="mt-2 text-right">
                   <button
-                    class="btn btn-sm btn-primary profile-button rounded-pill"
+                    class="
+                      btn btn-sm btn-outline-primary
+                      profile-button
+                      rounded-pill
+                    "
                     type="button"
                     @click="updateAccount"
                   >
@@ -225,22 +226,40 @@ export default {
         phone: "",
         email: "",
         career: "",
+        gender: "",
       },
     };
   },
   methods: {
     async init() {
-      const student = await StudentService.getStudent();
+      try {
+        const student = await StudentService.getStudent();
 
-      this.user.name = student.name;
-      this.user.lastname = student.lastname;
-      this.user.birthdate = student.birthdate;
-      this.user.phone = student.phone;
-      this.user.email = student.email;
-      this.user.career = student.career;
+        this.user.name = student.name;
+        this.user.lastname = student.lastname;
+        this.user.birthdate = student.birthdate;
+        this.user.phone = student.phone;
+        this.user.email = student.email;
+        this.user.career = student.career;
+        this.user.gender = student.gender;
+      } catch (error) {
+        alert(error);
+      }
     },
-    updateAccount() {
-      alert("En construcción");
+    async updateAccount() {
+      const id = localStorage.getItem("id");
+      const student = await StudentService.updateStudent(id, this.user);
+
+      console.log(student);
+      if (student) {
+        if (
+          student.name != localStorage.getItem("name") ||
+          student.lastname != localStorage.getItem("lastname")
+        ) {
+          localStorage.setItem("name", student.name);
+          localStorage.setItem("lastname", student.lastname);
+        }
+      }
     },
     deleteAccount() {
       alert("Desactivando cuenta");

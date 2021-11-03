@@ -4,6 +4,7 @@ import LogIn from './components/LogIn.vue'
 import SignUp from './components/SingUp.vue'
 import CourseDetail from './components/courseDetail.vue'
 import MyCourses from './components/MyCourses.vue'
+import Headline from './components/Headline.vue'
 
 import Auth from './views/Auth'
 import Home from './views/Home'
@@ -40,10 +41,19 @@ const routes = [{
   path: '/home',
   name: 'home',
   component: Home,
+  redirect: 'home',
   meta: {
     requiresAuth: true
   },
   children: [
+    {
+      path: '/home',
+      name: 'headline',
+      component: Headline,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/mycourses',
       name: 'mycourses',
@@ -60,7 +70,7 @@ const routes = [{
         requiresAuth: true
       }
     },
-   
+
   ]
 },
 {
