@@ -22,7 +22,7 @@ export default {
     async updateStudent(id, data) {
         try {
             const student = await axios.patch(
-                ` https://unversidad-back.herokuapp.com/students/students/${id}/`,
+                ` https://unversidad-back.herokuapp.com/students/updateStudent/${id}/`,
                 data,
                 {
                     headers: {
